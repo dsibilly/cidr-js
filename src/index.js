@@ -1,35 +1,33 @@
 'use strict';
 
-var php = require('phpjs');
-var ip2long = php.ip2long;
-var long2ip = php.long2ip;
-var math = Math;
-var Calculator = require( 'ip-subnet-calculator' );
-
-var CIDR = function CIDR() {
-    if (!(this instanceof CIDR)) {
-        return new CIDR();
-    }
-};
-
-/**
- * Finds the appropriate block or
- * bucket for the given IP to be
- * inserted in. Another way
- * @param key
- * @param ip
- */
-var block = function(collection, key, ip) {
-    if (!collection) {
-        collection = {};
-    }
-
-    if (!collection[key]) {
-        collection[key] = [];
-    }
-
-    collection[key].push(ip);
-};
+const ip2long = require('locutus/php/network/ip2long'),
+    long2ip = require('locutus/php/network/long2ip'),
+    Calculator = require('ip-subnet-calculator'),
+    
+    CIDR = function () {
+        if (!(this instanceof CIDR)) {
+            return new CIDR();
+        }
+    },
+    
+    /**
+     * Finds the appropriate block or
+     * bucket for the given IP to be
+     * inserted in. Another way
+     * @param key
+     * @param ip
+     */
+    block = (collection, key, ipAddress) => {
+        if (!collection) {
+            collection = {};
+        }
+        
+        if (!collection[key]) {
+            collection[key] = [];
+        }
+        
+        collection[key].push(ipAddress);
+    };
 
 /**
  * Returns the IP range (start & end)
@@ -37,21 +35,21 @@ var block = function(collection, key, ip) {
  * @param ip
  * @returns {Object}
  */
-CIDR.prototype.range = function(ip) {
-    if (!(ip.indexOf('/') > -1)) {
+CIDR.prototype.range = cidr => {
+    if (!(cidr.indexOf('/') > -1)) {
         return null;
     }
-
-    var range = {};
-    var parts = ip.split('/');
-
-    if ((parts[1] > 32)) {
+    
+    const range = {},
+        parts = cidr.split('/');
+        
+    if (parts[1] > 32) {
         return null;
     }
-
+    
     range.start = long2ip((ip2long(parts[0])) & ((-1 << (32 - +parts[1]))));
-    range.end = long2ip((ip2long(range.start)) + math.pow(2, (32 - +parts[1])) - 1);
-
+    range.end = long2ip((ip2long(range.start)) + Math.pow(2, (32 - +parts[1])) - 1);
+    
     return range;
 };
 
