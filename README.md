@@ -1,5 +1,5 @@
 # Strong CIDR
-Forked from [Kirk Gordon's strong-cidr](https://github.com/krg7880/strong-cidr) and updated to
+Forked from [Kirk Gordon's cidr-js](https://github.com/krg7880/strong-cidr) and updated to
 ECMAScript 2018. Now with async!
 
 A utility for obtaining metadata from CIDR blocks. Can provide a list of valid IP addresses (sorted in ascending order) or the range (start &amp; end) of the block.
