@@ -1,11 +1,11 @@
 {
-  "author": "Kirk Gordon <kirk7880@gmail.com>",
+  "author": "Duane Sibilly <duane@sibilly.com>",
   "bugs": {
-    "url": "https://github.com/dsibilly/cidr-js/issues"
+    "url": "https://github.com/dsibilly/strong-cidr/issues"
   },
   "contributors": [
     "Anthony Cocco <tcgtony@gmail.com>",
-    "Duane Sibilly <duane@sibilly.com>"
+    "Kirk Gordon <kirk7880@gmail.com>"
   ],
   "dependencies": {
     "ip-subnet-calculator": "^1.1.8",
@@ -27,21 +27,21 @@
     "node": ">=6.0.0",
     "npm": ">=5.0.0"
   },
-  "homepage": "https://github.com/dsibilly/cidr-js",
+  "homepage": "https://github.com/dsibilly/strong-cidr",
   "keywords": [
     "cidr",
     "ip",
-    "ips",
+    "ip addresses",
     "ipv4",
     "network",
     "networking"
   ],
   "license": "MIT",
   "main": "index.js",
-  "name": "cidr-js",
+  "name": "strong-cidr",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dsibilly/cidr-js.git"
+    "url": "https://github.com/dsibilly/strong-cidr.git"
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
