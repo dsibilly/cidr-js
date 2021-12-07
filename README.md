@@ -1,4 +1,7 @@
 # cidr-js
+Forked from [krg7880/cidr-js](https://github.com/krg7880/cidr-js) and updated to
+ECMAScript 2018. Now with async!
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/9eefac0052de9568c9f4/maintainability)](https://codeclimate.com/github/dsibilly/cidr-js/maintainability)
 
 A utility for obtaining metadata from CIDR blocks. Can provide a list of valid IP addresses (sorted in ascending order) or the range (start &amp; end) of the block.
