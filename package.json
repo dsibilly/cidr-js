@@ -45,6 +45,7 @@
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
+    "prepublishOnly": "npm audit && npm run coverage",
     "test": "mocha"
   },
   "version": "3.0.0"
