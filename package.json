@@ -9,7 +9,6 @@
   ],
   "dependencies": {
     "ip-subnet-calculator": "^1.1.8",
-    "line-by-line": "^0.1.6",
     "locutus": "^2.0.15"
   },
   "description": "Utility for expanding CIDR blocks into lists of IP addresses",
@@ -45,7 +44,8 @@
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
+    "prepublishOnly": "npm audit && npm run coverage",
     "test": "mocha"
   },
-  "version": "3.0.0"
+  "version": "3.0.1"
 }

@@ -118,12 +118,11 @@ class CIDR {
     }
     
     /**
-     * Returns arrays grouped
-     * contiguously.
+     * Returns arrays grouped contiguously.
      *
-     * @returns {Array}
+     * @returns Promise({Array})
      */
-    async getBlocks(ipArray) {
+    async getCIDRBlocks(ipArray) {
         const blocks = await this.filter(ipArray),
             results = [];
         

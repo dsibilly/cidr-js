@@ -8,29 +8,6 @@ const chai = require('chai'),
 describe('CIDR', () => {
     const cidr = new CIDR();
     
-    describe('getBlocks()', () => {
-        it('is a function', () => {
-           expect(cidr.getBlocks).to.be.a('function');
-        });
-        
-        it('should return arrays grouped contiguously', done => {            
-            cidr.getBlocks(ips.slice()).then(results => {
-                expect(results.length).to.equal(6);
-                expect((results.indexOf('127.0.0.0/30') > -1)).to.equal(true);
-                expect((results.indexOf('127.0.0.4/31') > -1)).to.equal(true);
-                expect((results.indexOf('127.0.0.6/32') > -1)).to.equal(true);
-        
-                expect((results.indexOf('127.0.1.1/32') > -1)).to.equal(true);
-                expect((results.indexOf('127.0.1.2/31') > -1)).to.equal(true);
-        
-                // verify our dangler is included as a single IP
-                expect((results.indexOf('127.0.1.5') > -1)).to.equal(true);
-                
-                return done();
-            });
-        });
-    });
-    
     describe('filter()', () => {
         it('is a function', () => {
             expect(cidr.filter).to.be.a('function');
@@ -75,6 +52,29 @@ describe('CIDR', () => {
         });
     });
     
+    describe('getCIDRBlocks()', () => {
+        it('is a function', () => {
+           expect(cidr.getCIDRBlocks).to.be.a('function');
+        });
+        
+        it('should return arrays grouped contiguously', done => {            
+            cidr.getCIDRBlocks(ips.slice()).then(results => {
+                expect(results.length).to.equal(6);
+                expect((results.indexOf('127.0.0.0/30') > -1)).to.equal(true);
+                expect((results.indexOf('127.0.0.4/31') > -1)).to.equal(true);
+                expect((results.indexOf('127.0.0.6/32') > -1)).to.equal(true);
+        
+                expect((results.indexOf('127.0.1.1/32') > -1)).to.equal(true);
+                expect((results.indexOf('127.0.1.2/31') > -1)).to.equal(true);
+        
+                // verify our dangler is included as a single IP
+                expect((results.indexOf('127.0.1.5') > -1)).to.equal(true);
+                
+                return done();
+            });
+        });
+    });
+
     describe('list()', () => {
         it('is a function', () => {
             expect(cidr.list).to.be.a('function');
