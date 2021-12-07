@@ -28,3 +28,10 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# macOS index files
+.DS_Store
+
+# Istanbul test coverage
+.nyc_output
+coverage
