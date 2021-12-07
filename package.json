@@ -39,30 +39,12 @@
   "license": "MIT",
   "main": "index.js",
   "name": "cidr-js",
-  "nyc": {
-    "all": true,
-    "cache": true,
-    "check-coverage": true,
-    "include": [
-      "./*.js",
-      "src/*.js"
-    ],
-    "exclude": [
-      "test/*"
-    ],
-    "instrument": false,
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "sourceMap": false
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dsibilly/cidr-js.git"
   },
   "scripts": {
-    "coverage": "nyc check-coverage",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "test": "mocha"
   },
   "version": "2.2.1"

@@ -3,38 +3,8 @@
 const ip2long = require('locutus/php/network/ip2long'),
     long2ip = require('locutus/php/network/long2ip'),
     Calculator = require('ip-subnet-calculator'),
-    
-    /**
-     * Finds the appropriate block or
-     * bucket for the given IP to be
-     * inserted in. Another way
-     * @param collection
-     * @param key
-     * @param ipAddress
-     */
-    block = (collection, key, ipAddress) => {
-        if (!collection) {
-            collection = {};
-        }
-        
-        if (!collection[key]) {
-            collection[key] = [];
-        }
-        
-        collection[key].push(ipAddress);
-    },
-    /**
-     * Converts an array of IP address
-     * strings into long integers (instanceof Number.)
-     * @param ipAddresses
-     */
-    convertAndSort = ipAddresses => {
-        return ipAddresses.map((currentIp, index) => {
-            if (currentIp) {
-                return ip2long(currentIp);
-            }
-        }).sort();
-    }
+    block = require('./block'),
+    convertAndSort = require('./convertAndSort');
 
 class CIDR {
     /**
@@ -43,16 +13,16 @@ class CIDR {
      * @param cidr
      * @returns {Object}
      */
-    range (cidr) {
+    async range (cidr) {
         if (!(cidr.indexOf('/') > -1)) {
-            return null;
+            throw new Error(`range(): Malformed CIDR string ${cidr} is missing a subnet mask`);
         }
         
         const range = {},
             parts = cidr.split('/');
             
         if (parts[1] > 32) {
-            return null;
+            throw new Error(`range(): Malformed CIDR string ${cidr} has an invalid subnet mask`);
         }
         
         range.start = long2ip((ip2long(parts[0])) & ((-1 << (32 - +parts[1]))));
@@ -67,18 +37,20 @@ class CIDR {
      * given cidr block.
      *
      * @param cidr
-     * @return {Array}
+     * @return Promise({Array})
      */
-    list (cidr) {
+    async list (cidr) {
         if (typeof cidr === 'undefined') {
-            return null;
+            throw new Error('list(): Malformed CIDR string is undefined');
         }
         
-        const range = this.range(cidr);
+        const range = await this.range(cidr);
         
-        if (!range) {
-            return null;
-        }
+        // Any input that would cause range() to return a falsy value would
+        // also cause range() to reject with an Error...
+        // if (!range) {
+        //     throw new Error(`list(): CIDR ${cidr} has an invalid range`);
+        // }
         
         const list = [];
         
@@ -98,14 +70,14 @@ class CIDR {
      * Filter the array by grouping
      * IPs where all 32 bits are contiguous
      * 127.0.0.0, 127.0.0.1, 127.0.0.2, etc
-     * @returns {Object}
+     * @returns Promise({Object})
      */
-    filter (ipArray) {
+    async filter (ipArray) {
         if (!(ipArray instanceof Array) || ipArray.length <= 0) {
-            return null;
+            throw new Error('filter(): An Array of positive, non-zero length is required');
         }
         
-        ipArray = convertAndSort(ipArray);
+        ipArray = await convertAndSort(ipArray);
         
         let cont = true,
             key = 0;
@@ -151,8 +123,8 @@ class CIDR {
      *
      * @returns {Array}
      */
-    getBlocks(ipArray) {
-        const blocks = this.filter(ipArray),
+    async getBlocks(ipArray) {
+        const blocks = await this.filter(ipArray),
             results = [];
         
         for (let i in blocks) {
