@@ -47,5 +47,5 @@
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "test": "mocha"
   },
-  "version": "2.2.1"
+  "version": "3.0.0"
 }
