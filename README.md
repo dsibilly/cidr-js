@@ -4,6 +4,10 @@ ECMAScript 2018. Now with async!
 
 A utility for obtaining metadata from CIDR blocks. Can provide a list of valid IP addresses (sorted in ascending order) or the range (start &amp; end) of the block.
 
+[![NPM](https://nodei.co/npm/strong-cidr.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/strong-cidr/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Maintainability](https://api.codeclimate.com/v1/badges/9eefac0052de9568c9f4/maintainability)](https://codeclimate.com/github/dsibilly/cidr-js/maintainability)
+
 ## Install
 ```bash
 npm install strong-cidr
